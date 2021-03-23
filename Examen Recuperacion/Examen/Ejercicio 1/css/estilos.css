@@ -1,0 +1,41 @@
+section{
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+}
+
+.ficha{
+    border: 1px solid #333;
+    margin-top: 15px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    padding:10px;
+
+}
+
+.fruta{
+    margin: 0px;
+    font-size: 140px;
+    text-align: center;
+
+}
+
+.nombre{
+    background-color:lightgray;
+    height: 40px;
+    text-align: center;
+    font-size: x-large;
+    margin: 0px;
+    
+}
+
+.texto{
+    text-align: center;
+    margin: 0px;
+}
+
+
+
+
+

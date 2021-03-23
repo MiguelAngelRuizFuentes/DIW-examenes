@@ -1,0 +1,57 @@
+#contenedor{
+    width: 90%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center; /* Centrar componentes horizontalmente*/
+    background-color: lightyellow;
+}
+
+#lista{
+    width: 90%;
+    padding: 10px;
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+
+.bloque{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+#formulario{
+    background-color: #AAA;
+    border: 1px solid lightgray;
+    margin:10px;
+    padding:10px;
+
+}
+
+
+.lineaArticulo {
+    width: 90%px;
+    padding: 25px 15px;
+    border: 1px solid black;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+	position: relative;
+	left: 0px;
+}
+
+.lineaArticulo span {
+    display: inline-block;
+    padding: 5px;
+}
+
+.lineaArticulo button {
+    float: right;
+}

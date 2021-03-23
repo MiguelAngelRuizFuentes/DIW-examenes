@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Recuperación jQuery - 11 noviembre 2019</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+        <link rel="stylesheet" href="css/style.css">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header><h1>Recuperación jQuery</h1></header>
+    <div id="contenedor">             
+        
+        <div id="notas">
+            <h1>Notas</h1>
+            <form id="formulario" action="#" method="get">
+                <div class="bloque">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" id="nombre">
+                </div>
+                <div class="bloque">
+                    <label for="htmlcss">Nota de HTMLCSS:</label>
+                    <input type="number"  min="1" max="10" name="notaHTMLCSS" id="notaHTMLCSS">
+                </div>
+                <div class="bloque">
+                    <label for="animaciones">Nota de Animaciones:</label>
+                    <input type="number"  min="1" max="10" name="notaAnimaciones" id="notaAnimaciones">
+                </div>
+                <div class="bloque">
+                    <label for="audiovideo">Nota de Audio y Vídeo:</label>
+                    <input type="number"  min="1" max="10" name="notaAudiovideo" id="notaAudiovideo">
+                </div>
+                <div class="bloque">
+                    <label for="jquery">Nota de jQuery:</label>
+                    <input type="number"  min="1" max="10" name="notaJQuery" id="notaJQuery" >
+                </div>
+
+                <div id="pesos">
+                    <p id="title">Pesos</p>
+                    <div class="content">
+                        <div class="bloque1">
+                            <label for="pesoHTMLCSS">HTMLCSS:</label>
+                            <input type="number" min="0" max="1"  step="0.1" name="pesoHTMLCSS" id="pesoHTMLCSS" value="0.3">
+                        </div>
+                        <div class="bloque1">
+                            <label for="pesoAnimaciones">Animaciones:</label>
+                            <input type="number" min="0" max="1" step="0.1" name="pesoAnimaciones" id="pesoAnimaciones" value="0.2">
+                        </div>
+                        <div class="bloque1">
+                            <label for="pesoAudiovideo">Audio y Vídeo:</label>
+                            <input type="number" min="0" max="1"  step="0.1" name="pesoAudiovideo" id="pesoAudiovideo" value="0.2">
+                        </div>
+                        <div class="bloque1">
+                            <label for="pesoJQuery">jQuery:</label>
+                            <input type="number" min="0" max="1"  step="0.1" name="pesoJQuery" id="pesoJQuery" value="0.3">
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" id="btnCalcular" value="Calcular nota" >
+                <button id="colorear">Colorear</button>
+            </form>
+        </div>
+            
+        
+
+        <div id="resultados"> 
+            <!--<h1>Resultados</h1> 
+            <div class="alumno">
+                <span>Alumno: Pepe Jiménez</span>
+                <span>Nota: 8.6</span>
+                <div class="botones">
+                    <button>Borrar</button>
+                    <button>Cerrar</button>
+                </div>
+            </div>-->
+
+        </div>
+
+    </div>
+
+    <script>
+
+            // Prevenir que se recargue la página al enviar el formulario
+            $("#formulario").submit(function(e) {
+                e.preventDefault();
+            });
+
+
+            // 1 - Crear alumno nuevo en el div de lista
+            $("#btnCalcular").click(function() {
+                // Calcular valores que se pasa del formulario producto y crear el alumno:
+                var nombre = $("#nombre").val();
+                var nota_html = $("#notaHTMLCSS").val();
+                var peso_html = $("#pesoHTMLCSS").val();
+                var nota_animaciones = $("#notaAnimaciones").val();
+                var peso_animaciones = $("#pesoAnimaciones").val();
+                var nota_video = $("#notaAudiovideo").val();
+                var peso_video = $("#pesoAudiovideo").val();
+                var nota_Jquery = $("#notaJQuery").val();
+                var peso_Jquery = $("#pesoJQuery").val();
+                var total = (nota_html*peso_html)+(nota_animaciones*peso_animaciones)+(nota_video*peso_video)+(nota_Jquery*peso_Jquery);
+                $("#resultados").append("<div class='alumno'><span>Alumno: "+nombre+"</span><span class='lineaTotal'>Nota: "+total+"</span><button class='botonBorrar'>Borrar</button><button class='botonCerrar'>Cerrar</button></div>");
+            });
+
+
+            // 2 - Animación de boton cerrar función de traversing parent()
+            //Uso la funcion easeOutBack 
+            $("#resultados").on('click', 'button.botonCerrar', function() {
+                //$(this).animate({"left": "+=1500px"}, "slow");
+                if($(this).text() == "Cerrar") {
+                    $(this).parent().stop().animate({
+                        left : "-=78px"
+                    }, 1000, "easeOutBack");
+                    $(this).text("Mostrar");
+                }else{
+                    $(this).parent().stop().animate({
+                        left : "+=78px"
+                    }, 1000, "easeOutBack");
+                    $(this).text("Cerrar");
+                }
+            });
+
+
+
+            // 3 - He usado una delegación de eventos de la section #lista para borrar su article:
+            $("#resultados").on('click', 'button.botonBorrar', function() {
+                // Función traversing parent():
+                $(this).parent().remove();
+            });
+
+
+            //4 panel desplegable 
+            $('#pesos #title').click(function(){
+
+
+                var $answer = $(this).next('.bloque1');
+                if ($answer.is(':hidden')){
+                    $answer.slideDown();
+                    $(this).addClass('close');
+                }else{
+                    $answer.fadeOut("slow");
+                    $(this).removeClass('close');
+                }
+                
+            });
+
+
+
+            //5 Colorear segun la nota 
+
+            $("#colorear").on('click', function() {
+                var total = 0;
+
+                // sacamos la nota de cada alumno
+                $(".lineaTotal").each(function() {
+                    var nota = $(this).text();
+                    // Modificar el color
+                    if(nota >= 5){
+                        $(this).css("background-color", "green");
+                    }else{
+                        $(this).css("background-color", "red");
+                    }
+                });
+
+
+            });
+
+
+
+
+
+    </script>
+
+</body>
+</html>

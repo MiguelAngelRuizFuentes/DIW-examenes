@@ -1,0 +1,101 @@
+#contenedor{
+    width: 90%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center; /* Centrar componentes horizontalmente*/
+    background-color: lightyellow;
+}
+
+#notas{
+    width: 90%;
+    padding: 10px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+
+.bloque{
+    display: flex;
+    flex-direction: column;
+}
+
+#pesos {
+    width: 90%;
+    border: 1px solid lightgray;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+#resultados{
+    width: 90%;
+    border: 1px solid lightgray;
+    margin: 10px;
+	overflow: hidden;
+	background-color: white;
+}
+
+#formulario{
+    background-color: #AAA;
+    border: 1px solid lightgray;
+    margin:10px;
+    padding:10px;
+
+}
+
+#pesos .title {
+    position: relative;
+    margin: 0 auto;
+    padding: 5px 15px 5px 30px;
+    background-color: lightsteelblue;
+}
+
+#pesos #title {
+    margin: 0;
+    cursor: pointer;
+    background-image:  url(_images/open.png);
+    background-repeat: no-repeat;
+    background-position:  5px 5px;
+    color: white;
+    background-color: rgb(27,45,94);
+    padding: 5px 0 5px 30px;
+    border-radius: 0 0 5px 5px;
+}
+
+#pesos #title.close {
+    background-image: url(_images/close.png);
+}
+
+#pesos #title:hover {
+    color: rgb(0,0,0);
+    background-color: rgb(200,200,200); 
+}
+
+#pesos .content{
+    display: none;
+}
+
+.alumno {
+    width: 400px;
+    padding: 25px 15px;
+    border: 1px solid black;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+	position: relative;
+	left: 0px;
+}
+
+.alumno span {
+    display: block;
+}
+
+.alumno .botones{display:flex; justify-content: flex-end;}
+
+.aprobado{background-color: greenyellow;}
+.suspenso{background-color: red;}

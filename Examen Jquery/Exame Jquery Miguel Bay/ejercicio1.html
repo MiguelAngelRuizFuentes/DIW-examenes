@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Recuperación jQuery - 11 noviembre 2019</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+        <link rel="stylesheet" href="css/style.css">
+
+        <!-- Estilo de aviso cookie -->
+        <style type="text/css">
+            .cookie {
+              position: fixed;
+              bottom: 0;
+              left: 0;
+              z-index: 10;
+              box-sizing: border-box;
+              width: 100%;
+              background-color: orange;
+            }
+        </style>
+
+        <!-- Enlace a CDN JQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+        <!-- Enlace a CDN JQueryUI -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+        
+</head>
+<body>
+    <header><h1>Examen jQuery - 19/02/2021</h1></header>
+    <div id="contenedor">             
+        
+        <section id="recogidaDatos">
+            <h1>Datos de producto</h1>
+            <form id="formulario" action="#" method="get">
+                <div class="bloque">
+                    <label for="producto">Producto:</label>
+                    <input type="text" name="producto" id="producto">
+                </div>
+                <div class="bloque">
+                    <label for="precio">Precio:</label>
+                    <input type="number"  min="0" max="1000" name="precio" id="precio">
+                </div>
+                <div class="bloque">
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number"  min="1" max="100" name="cantidad" id="cantidad">
+                </div>
+                <input type="submit" id="btnAnadir" value="Añadir" >
+            </form>
+        </section>
+            
+        
+
+        <section id="lista"> 
+            <h1>Lista de la compra</h1>
+            <!--<article class="lineaArticulo">
+                <span>Producto</span>
+                <span>Precio</span>
+                <span>
+                    Cantidad:<input type="number"  min="1" max="100" class="cant" value="1">
+                </span>
+                <span class="lineaTotal">Total</span>
+                <button class="botonBorrar">Borrar</button>
+            </article> -->
+        </section>
+        <section id="total">
+            <div id="des">
+                <label for="casillaDescuento">Descuento:</label>
+                <input type="checkbox" name="casillaDescuento" value="descuento" />
+                <input type="number"  min="1" max="100" name="descuento" id="descuento" value="1"><br/>
+            </div>
+            Total: <span id="totalFinal">Precio total</span>
+            <button class="calcularTotal">Calcular total</button>
+        </section>
+
+        <div id="panel" class="cookie">
+            <button id="btnCookie">Ocultar</button>
+            <br/>
+            Utilizamos cookies propias y de terceros para obtener datos estadísticos de la navegación de nuestros usuarios y mejorar nuestros servicios. Si acepta o continúa navegando, consideramos que acepta su uso. Puede cambiar la configuración u obtener más información <a href="#"><b>aquí</b></a> (enlace a página de cookies).
+        </div>
+
+        <!-- Script jQuery -->
+        <script type="text/javascript">
+
+            // Prevenir que se recargue la página al enviar el formulario
+            $("#formulario").submit(function(e) {
+                e.preventDefault();
+            });
+
+            // Casilla descuento 50% opacidad al principio:
+            $("#des").animate({
+                opacity: "50%"
+
+            });
+
+
+            // 1 - Crear artículo nuevo en el div de lista
+            $("#btnAnadir").click(function() {
+                // Calcular valores que se pasa del formulario producto y crear el artículo:
+                var producto = $("#producto").val();
+                var precio = $("#precio").val();
+                var cantidad = $("#cantidad").val();
+                var total = precio * cantidad;
+                $("#lista").append("<article class='lineaArticulo'><span>"+producto+"</span><span>"+precio+"</span><span>Cantidad:<input type='number'  min='1' max='100' class='cant' value='"+cantidad+"'></span><span class='lineaTotal'>"+total+"</span><button class='botonBorrar'>Borrar</button></article>");
+            });
+
+
+            // 2 - Modificar total al cambiar la cantidad del producto con delegación de eventos y métodos de traversing
+            $("#lista").on('change', "article.lineaArticulo input[type='number']", function() {
+                var modificarCantidad = $(this).val();
+
+                // Funciones traversing children(), find(), parent() y eq():
+                var precio = $(this).parent("span").parent("article").children("span").eq(1).text();
+                var p = parseInt(precio) * modificarCantidad;
+                $(this).parent("span").parent("article").find("span.lineaTotal").text(p);
+            });
+
+
+            // 3 - He usado una delegación de eventos de la section #lista para borrar su article:
+            $("#lista").on('click', 'button.botonBorrar', function() {
+                // Función traversing parent():
+                $(this).parent().remove();
+                $("button.calcularTotal").click();
+            });
+
+
+            // 4 - Opacidad de la casilla descuento
+            $("#des input[type='checkbox']").change(function() {
+                // Comprobar si la casilla está seleccionada:
+                if($(this).is(":checked")) {
+                    // Función traversing parent():
+                    $(this).parent().animate({
+                        opacity: "100%"
+                    });
+                }else {
+                    // Función traversing parent():
+                    $(this).parent().animate({
+                        opacity: "50%"
+                    });
+                }
+            });
+
+            // 5 - Precio total con o sin descuento
+            $("button.calcularTotal").on('click', function() {
+                var total = 0;
+
+                // Sumo los precios totales de cada producto sin su descuento y función traversing each()
+                $(".lineaTotal").each(function() {
+                    var textoTotal = $(this).text();
+                    total += parseInt(textoTotal);
+                });
+
+                // Precio total con el descuento:
+                if($("#des input[type='checkbox']").is(":checked")) {
+                    var descuento = $("#descuento").val();
+                    descuento = (total * descuento) / 100;
+                    total -= descuento;
+                }
+
+                // Modificar el total final
+                $("#totalFinal").text(total);
+            });
+
+
+            // 6 - Animación de aviso cookie y función de traversing parent():
+            $("#btnCookie").click(function() {
+                if($(this).text() == "Ocultar") {
+                    $(this).parent().stop().animate({
+                        bottom : "-=37px"
+                    }, 1000, "easeInSine");
+                    $(this).text("Aviso sobre cookies");
+                }else {
+                    $(this).parent().stop().animate({
+                        bottom : "+=37px"
+                    }, 1000, "easeOutBounce");
+                    $(this).text("Ocultar");
+                }
+            });
+
+        </script>
+
+    </div>
+</body>
+</html>

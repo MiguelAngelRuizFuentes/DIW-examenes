@@ -1,0 +1,189 @@
+/*Eliminamos todos los márgenes y rellenos*/
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+/*Hacemos del body un contenedor flexible cuyos elementos se distribuyan en columnas*/
+body{
+/*
+    display: flex;
+    flex-direction: column;
+*/
+}
+
+/* ******************************** */
+/*              CABECERA            */
+/* ******************************** */
+header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 200px;
+    
+}
+
+header img{
+    margin-left: 10px;
+}
+
+header h1{
+    margin-right: 10px;
+}
+
+/* ******************************** */
+/*            NAVEGACION            */
+/* ******************************** */
+nav{
+    min-height: 100px;
+    background-color: #990000;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+
+
+nav input {
+  background: #eee;
+  border: none;
+  font-size: 10pt;
+  color: #63717f;
+  padding-left: 45px;
+  border-radius: 5px;
+}
+
+.menu{
+    background-color: white;
+
+}
+
+.menu a{
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    padding: 3px;
+}
+
+
+/* **************************************** */
+/*            zona de contenidos            */
+/* **************************************** */
+main{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+/* **************************************** */
+/*            barra lateral                 */
+/* **************************************** */
+aside{
+    flex:25%;
+    background-color: #EA9999;
+    padding: 20px;
+}
+
+aside a {
+    /*los enlaces se ven una debajo del otro, en lugar de uno al lado del otro*/
+    /*Recordamos que los enlaces son elementos de tipo en linea, por lo que de 
+    no establecer el display a block se verían uno a continuación del otro. Además
+    me permite ponerle un padding*/
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+}
+
+/* **************************************** */
+/*            zona de productos             */
+/* **************************************** */
+main section{
+    flex:75%;
+    padding: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+
+/* **************************************** */
+/*            Productos                     */
+/* **************************************** */
+article{
+    /*las tarjetas van a tener como mínimo 200px de ancho, y en general su ancho se va a 
+    adaptar a su contenedor en caso de poder hacerse*/
+    min-width: 200px;
+    flex: auto;
+    
+    /*los artículos, a su vez son contenedores flex */
+    display:flex;
+    flex-direction: column;
+    
+    /*Aparte, cada tarjeta va a tener 300px de altura, borde, etc.*/
+    height: 300px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+article h3{
+    /*La cabecera del artículo ocupa el 20% de la tarjeta, y su tamaño no va a cambiar*/
+    flex: 0 0 20%;    
+}
+
+article img{
+    /*La imagen del artículo tiene 160 x 160 px y en caso de modificarse la altura de la tarjeta o el contenido sería el único elemento flex que cambiaría, tanto para crecer
+    como para disminuir*/
+
+    width: 160px;
+    height: 160px;
+
+    margin: 10px auto;
+    flex: 1 1 60%;
+}
+
+article footer{
+    flex: 0 0 20%;
+}
+
+footer#piePagina {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 100px;
+    border: 2px solid black;
+}
+
+footer#piePagina section h3{
+    color: #990000;
+}
+
+#primera a {
+    display: block;
+    color: black;
+}
+
+i.fa{
+    color: #EA9999;
+    font-size: 2em;
+}
+
+.icon{
+    margin-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+.
